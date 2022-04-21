@@ -1,0 +1,10 @@
+const express = require("express");
+const user = require("./api/user");
+const errorMiddleware = require("./middleware/error");
+const app = express();
+const cors = require("cors");
+app.use(express.json());
+app.use(cors());
+app.use("/api/user", user);
+app.use(errorMiddleware);
+module.exports = app;
