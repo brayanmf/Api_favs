@@ -1,10 +1,14 @@
 const express = require("express");
-const user = require("./api/user");
+const cookieParser = require("cookie-parser");
+const user = require("./auth");
+const fav = require("./api/fav");
 const errorMiddleware = require("./middleware/error");
 const app = express();
 const cors = require("cors");
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors());
 app.use("/api/user", user);
+app.use("/api", fav);
 app.use(errorMiddleware);
 module.exports = app;
