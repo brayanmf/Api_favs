@@ -4,6 +4,7 @@ require("dotenv").config({
 });
 const connectDatabase = require("./config/index");
 
-app.listen(process.env.PORT || 8000, () => {
+const server = app.listen(process.env.PORT || 8000, () => {
   connectDatabase();
 });
+module.exports = server;
