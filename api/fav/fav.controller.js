@@ -1,7 +1,7 @@
 const Fav = require("./fav.model");
 const sendResponse = require("../../utils/sendResponse");
 
-exports.registerFav = async (req, res, next) => {
+exports.createFav = async (req, res, next) => {
   const { title, ...data } = req.body;
   const { _id } = req.user;
   if (!title) {

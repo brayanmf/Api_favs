@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const { isAuthenticated } = require("../../middleware/auth");
 const {
-  registerFav,
+  createFav,
   getAllFav,
   getFav,
   updateFav,
@@ -10,7 +10,7 @@ const {
 const router = Router();
 
 router
-  .post("/favs", isAuthenticated, registerFav)
+  .post("/favs", isAuthenticated, createFav)
   .get("/favs", isAuthenticated, getAllFav);
 router
   .get("/favs/:id", isAuthenticated, getFav)

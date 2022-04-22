@@ -13,6 +13,7 @@ const FavSchema = new mongoose.Schema(
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
+      default: mongoose.Types.ObjectId,
       ref: "User",
     },
   },
