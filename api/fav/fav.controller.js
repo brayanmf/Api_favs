@@ -1,6 +1,11 @@
 const Fav = require("./fav.model");
 const sendResponse = require("../../utils/sendResponse");
-
+/**
+ * @description: create fav
+ * @param {req} request object with title and userId
+ * @returns {json}}
+ * @author : Brayanmf
+ */
 exports.createFav = async (req, res, next) => {
   const { title, ...data } = req.body;
   const { _id } = req.user;
@@ -18,6 +23,12 @@ exports.createFav = async (req, res, next) => {
     next(err);
   }
 };
+/**
+ * @description: get fav by
+ * @param {req} request object  params id
+ * @returns {json}}
+ * @author : Brayanmf
+ */
 exports.getFav = async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -27,6 +38,12 @@ exports.getFav = async (req, res, next) => {
     next(err);
   }
 };
+/**
+ * @description: update fav
+ * @param {req} request object params id and body title
+ * @returns {json}}
+ * @author : Brayanmf
+ */
 exports.updateFav = async (req, res, next) => {
   const { id } = req.params;
   const { title, ...data } = req.body;
@@ -41,6 +58,13 @@ exports.updateFav = async (req, res, next) => {
     next(err);
   }
 };
+/**
+ * @description: get fav by user
+ * @param {req} request object  params id
+ * @returns {json}}
+ * @author : Brayanmf
+ */
+
 exports.deleteFav = async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -50,6 +74,11 @@ exports.deleteFav = async (req, res, next) => {
     next(err);
   }
 };
+/**
+ *@description:get all fav
+ *@returns {json}}
+ *@author : Brayanmf
+ */
 exports.getAllFav = async (req, res, next) => {
   try {
     const favs = await Fav.find();
