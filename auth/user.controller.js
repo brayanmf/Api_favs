@@ -30,7 +30,7 @@ exports.registerUser = async (req, res, next) => {
  * @returns {json}}
  * @author : Brayanmf
  */
-exports.loginUser = async (req, res) => {
+exports.loginUser = async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return next(new errorHandler("Email and password are required", 400));
@@ -63,7 +63,7 @@ exports.logout = async (req, res) => {
  *@returns {json}}
  *@author : Brayanmf
  */
-exports.getAllUsers = async (req, res) => {
+exports.getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find();
     sendResponse(users, "Users List", 200, res);
