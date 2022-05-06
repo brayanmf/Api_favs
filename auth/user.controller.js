@@ -1,7 +1,6 @@
-const User = require("./user.model");
 const sendToken = require("../utils/jwtToken");
-const errorHandler = require("../utils/errorHandler");
 const sendResponse = require("../utils/sendResponse");
+const { add, find, cookie, findAll } = require("./user.services");
 /**
  * @description: register user
  * @param {req} request object
@@ -9,16 +8,8 @@ const sendResponse = require("../utils/sendResponse");
  * @author : Brayanmf
  */
 exports.registerUser = async (req, res, next) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return next(new errorHandler("Email and password are required", 400));
-  }
   try {
-    const user = await User.create({
-      email,
-      password,
-    });
-
+    const user = await add(req.body, next);
     sendToken(user, 201, res);
   } catch (err) {
     next(err);
@@ -31,19 +22,12 @@ exports.registerUser = async (req, res, next) => {
  * @author : Brayanmf
  */
 exports.loginUser = async (req, res, next) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    return next(new errorHandler("Email and password are required", 400));
+  try {
+    const user = await find(req.body);
+    sendToken(user, 200, res);
+  } catch (err) {
+    next(err);
   }
-  const user = await User.findOne({ email }).select("+password");
-  if (!user) {
-    return next(new errorHandler("Invalid email", 401));
-  }
-  const isPasswordMatched = await user.comparePassword(password);
-  if (!isPasswordMatched) {
-    return next(new errorHandler("Invalid password", 401));
-  }
-  sendToken(user, 200, res);
 };
 /**
  *@description:logout user
@@ -51,12 +35,12 @@ exports.loginUser = async (req, res, next) => {
  *@author : Brayanmf
  */
 exports.logout = async (req, res) => {
-  res.cookie("token", null, {
-    expires: new Date(Date.now()),
-    httpOnly: true,
-  });
-
-  sendResponse(null, "Logout SuccessFully", 200, res);
+  try {
+    const response = await cookie(res);
+    sendResponse(null, "Logout SuccessFully", 200, response);
+  } catch (err) {
+    next(err);
+  }
 };
 /**
  *@description:get all user
@@ -65,7 +49,7 @@ exports.logout = async (req, res) => {
  */
 exports.getAllUsers = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users = await findAll();
     sendResponse(users, "Users List", 200, res);
   } catch (err) {
     next(err);
