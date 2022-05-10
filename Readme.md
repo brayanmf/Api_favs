@@ -6,7 +6,7 @@ Una API REST donde podemos organizar tus cosas favoritas : música, ropa, cursos
 - **fav :** Mediante los endpoint creados usted podrá crear editar eliminar y actualizar estando autentificado
 
 ## Installation
-
+Requiere [Node.js](https://nodejs.org/) v16+ correr.
 - Bifurca el proyecto de nuestro repositorio o descarga de [Assesment](https://github.com/brayanmf/assesment)
 - Instala las dependencias y las devdependecias del package.json dándole **npm install**
 
